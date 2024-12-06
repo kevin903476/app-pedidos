@@ -4,6 +4,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ADD8E6"
     tools:context=".Cliente">
 
     <LinearLayout
@@ -13,24 +14,30 @@
         android:padding="16dp">
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Registro de Cliente"
-            android:textSize="20sp"
+            android:text="Registro de Cliente  "
+            android:drawableEnd="@drawable/ic_peoplee"
+            android:textSize="26sp"
+            android:padding="10dp"
             android:textStyle="bold"
-            android:gravity="center"
-            android:layout_marginBottom="16dp"/>
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="4dp" />
+
+
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:text="Nombre del Cliente:"/>
 
         <EditText
             android:id="@+id/nombreClienteText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Ingrese su nombre completo"
+            android:hint="Ingrese su nombre completo "
             android:inputType="text"
             android:background="@android:drawable/edit_text"
             android:padding="8dp"
@@ -39,19 +46,24 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:text="Dirección de Entrega:"/>
 
         <EditText
             android:id="@+id/direccionEntregaEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Ingrese su dirección completa"
-            android:inputType="textPostalAddress"
+            android:hint="Ingrese la direccion"
+            android:inputType="text"
+            android:background="@android:drawable/edit_text"
+            android:padding="8dp"
             android:layout_marginBottom="16dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
             android:text="Método de Pago:"/>
 
         <!-- RadioGroup para seleccionar el método de pago -->
@@ -66,18 +78,21 @@
                 android:id="@+id/radioCredito"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:text="Tarjeta de Crédito" />
 
             <RadioButton
                 android:id="@+id/radioDebito"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:text="Tarjeta de Débito" />
 
             <RadioButton
                 android:id="@+id/radioEfectivo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:text="Efectivo" />
 
         </RadioGroup>
@@ -85,8 +100,11 @@
         <Button
             android:id="@+id/btnRegistrar"
             android:layout_width="match_parent"
+            android:textStyle="bold"
             android:layout_height="wrap_content"
-            android:text="Registrar"
+            android:textColor="@color/black"
+            android:backgroundTint="#66DE5F"
+            android:text="Registrar Pago"
             android:layout_marginTop="16dp"/>
 
     </LinearLayout>
