@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">app-pedidos</string>
+    <string name="app_name">Mi App</string>
+
+    <!-- Array para el Spinner -->
+    <string-array name="tallas">
+        <item>XS</item>
+        <item>S</item>
+        <item>M</item>
+        <item>L</item>
+        <item>XL</item>
+    </string-array>
 </resources>
