@@ -1,9 +1,9 @@
 package com.example.app_pedidos
 
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
@@ -21,6 +21,7 @@ class PedidoAdapter(
         val nombreClienteTextView: TextView = view.findViewById(R.id.nombreCliente)
         val direccionTextView: TextView = view.findViewById(R.id.direccion)
         val metodoPagoTextView: TextView = view.findViewById(R.id.metodoPago)
+        val imagenPedidoImageView: ImageView = view.findViewById(R.id.imagenPedido) // Imagen del pedido
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PedidoViewHolder {
@@ -39,6 +40,13 @@ class PedidoAdapter(
         holder.nombreClienteTextView.text = "Cliente: ${pedido.nombreCliente}"
         holder.direccionTextView.text = "Dirección: ${pedido.direccion}"
         holder.metodoPagoTextView.text = "Método de pago: ${pedido.metodoPago}"
+
+        // Asignar la imagen desde los recursos drawable usando setImageResource
+        if (pedido.imagen != 0) {
+            holder.imagenPedidoImageView.setImageResource(pedido.imagen)
+        } else {
+            holder.imagenPedidoImageView.setImageResource(R.drawable.ic_launcher_background) // Imagen predeterminada
+        }
 
         // Configurar eventos de clic y clic prolongado
         holder.itemView.setOnClickListener {

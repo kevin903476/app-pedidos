@@ -4,6 +4,7 @@
     android:orientation="vertical"
     android:padding="8dp">
 
+    <!-- Otros TextViews -->
     <TextView
         android:id="@+id/nombreProducto"
         android:layout_width="match_parent"
@@ -53,4 +54,11 @@
         android:layout_height="wrap_content"
         android:text="Método de pago"
         android:textSize="14sp" />
+
+    <!-- ImageView para mostrar la imagen -->
+    <ImageView
+        android:id="@+id/imagenPedido"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/ic_launcher_background" /> <!-- Imagen predeterminada en caso de que no haya ninguna -->
 </LinearLayout>

@@ -10,5 +10,5 @@ data class Pedido(
     val nombreCliente: String,
     val direccion: String,
     val metodoPago: String,
-    val imagen: String
+    val imagen: Int
 )

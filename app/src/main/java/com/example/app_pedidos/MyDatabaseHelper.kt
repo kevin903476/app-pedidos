@@ -116,7 +116,7 @@ class MyDatabaseHelper(context: Context) : SQLiteOpenHelper(context, NOMBRE_BASE
                     nombreCliente = it.getString(it.getColumnIndexOrThrow(COLUMNA_NOMBRE_CLIENTE)),
                     direccion = it.getString(it.getColumnIndexOrThrow(COLUMNA_DIRECCION)),
                     metodoPago = it.getString(it.getColumnIndexOrThrow(COLUMNA_METODO_PAGO)),
-                    imagen = it.getString(it.getColumnIndexOrThrow(COLUMNA_IMAGEN)) // Obtenemos la ruta de la imagen
+                    imagen = it.getInt(it.getColumnIndexOrThrow(COLUMNA_IMAGEN)) // Obtenemos la ruta de la imagen
                 )
                 listaPedidos.add(pedido)
             }
