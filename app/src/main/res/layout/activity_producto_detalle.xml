@@ -42,26 +42,55 @@
         android:text="Precio"
         android:textSize="16sp" />
 
-    <!-- EditText para ingresar el precio -->
-
-
-    <!-- Spinner para seleccionar la talla -->
-    <Spinner
-        android:id="@+id/spinnerTalla"
+    <!-- RadioGroup para seleccionar la talla -->
+    <RadioGroup
+        android:id="@+id/radioGroupTalla"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/textViewPrecio"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"
-        android:entries="@array/tallas" />
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioXS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="XS" />
+
+        <RadioButton
+            android:id="@+id/radioS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="S" />
+
+        <RadioButton
+            android:id="@+id/radioM"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="M" />
+
+        <RadioButton
+            android:id="@+id/radioL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="L" />
+
+        <RadioButton
+            android:id="@+id/radioXL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="XL" />
+
+    </RadioGroup>
 
     <!-- EditText para ingresar la cantidad -->
     <EditText
         android:id="@+id/editCantidad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/spinnerTalla"
+        app:layout_constraintTop_toBottomOf="@id/radioGroupTalla"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"

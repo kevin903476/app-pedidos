@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -27,29 +29,35 @@ class ProductoDetalle : AppCompatActivity() {
         val precio = intent.getDoubleExtra("precio", 0.0)
         val imagen = intent.getIntExtra("imagen", 0)  // Obtener el recurso de la imagen
 
-
         // Asignar los valores a los elementos de la vista
         findViewById<TextView>(R.id.textViewNombre).text = nombre
         findViewById<TextView>(R.id.textViewPrecio).text = "Precio: $${precio}"
 
-        val spinner: Spinner = findViewById(R.id.spinnerTalla)
-
         // Establecer la imagen
-
         findViewById<ImageView>(R.id.imageViewProducto).setImageResource(imagen)
 
-        // Asignar los datos a las vistas
+        // Obtener el RadioGroup y los RadioButton
+        val radioGroup: RadioGroup = findViewById(R.id.radioGroupTalla)
+
+        // Asignar el botón de continuar
         val btnContinuar = findViewById<Button>(R.id.btnRegistrar)
         btnContinuar.setOnClickListener {
+            // Obtener la talla seleccionada del RadioGroup
+            val selectedId = radioGroup.checkedRadioButtonId
+            val selectedRadioButton = findViewById<RadioButton>(selectedId)
+            val tallaSeleccionada = selectedRadioButton?.text.toString()  // Obtener la talla seleccionada
+
+            // Crear el Intent para pasar los datos a la actividad Cliente
             val intent = Intent(this, Cliente::class.java).apply {
                 putExtra("nombre", nombre)
                 putExtra("precio", precio)
                 putExtra("imagen", imagen)
-                putExtra("talla", spinner)
-
+                putExtra("talla", tallaSeleccionada)  // Enviar la talla seleccionada
             }
 
-            this.startActivity(intent)
+            // Iniciar la actividad Cliente
+            startActivity(intent)
         }
     }
 }
+

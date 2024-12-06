@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
@@ -17,13 +19,13 @@ class Cliente : AppCompatActivity() {
 
     private lateinit var nombreClienteText: TextView
     private lateinit var direccionEntregaEdit: EditText
-    private lateinit var metodoPagoSpinner: Spinner
+    private lateinit var radioGroupPago: RadioGroup
     private lateinit var btnRegistrar: Button
 
     private var nombreProducto: String? = null
     private var precioProducto: Double = 0.0
     private var imagenProducto: Int = 0
-    private var talla: Int = 0
+    private var talla: String? = null // Cambiado a String para manejar la talla como texto
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,24 +37,18 @@ class Cliente : AppCompatActivity() {
             insets
         }
 
+        // Obtener los datos enviados
         nombreProducto = intent.getStringExtra("nombre")
         precioProducto = intent.getDoubleExtra("precio", 0.0)
         imagenProducto = intent.getIntExtra("imagen", 0)
-        talla = intent.getIntExtra("imagen", 0)
+        talla = intent.getStringExtra("talla")  // Obtener la talla como String
 
         // Inicializar vistas
         nombreClienteText = findViewById(R.id.nombreClienteText)
         direccionEntregaEdit = findViewById(R.id.direccionEntregaEdit)
-        metodoPagoSpinner = findViewById(R.id.metodoPagoSpinner)
+        radioGroupPago = findViewById(R.id.radioGroupPago)
         btnRegistrar = findViewById(R.id.btnRegistrar)
 
-        // Configurar Spinner
-        val metodosPago = arrayOf("Tarjeta de crédito", "Transferencia bancaria", "PayPal", "Efectivo")
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, metodosPago)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        metodoPagoSpinner.adapter = adapter
-
-        // Acción al registrar
         btnRegistrar.setOnClickListener {
             enviarDatos()
         }
@@ -61,7 +57,11 @@ class Cliente : AppCompatActivity() {
     private fun enviarDatos() {
         val nombreCliente = nombreClienteText.text.toString()
         val direccionEntrega = direccionEntregaEdit.text.toString()
-        val metodoPago = metodoPagoSpinner.selectedItem.toString()
+
+        // Obtener el método de pago seleccionado
+        val selectedId = radioGroupPago.checkedRadioButtonId
+        val radioButton = findViewById<RadioButton>(selectedId)
+        val metodoPago = radioButton?.text.toString()
 
         if (nombreCliente.isEmpty()) {
             nombreClienteText.error = "Ingrese un nombre"
@@ -72,18 +72,18 @@ class Cliente : AppCompatActivity() {
             return
         }
 
-        // Crear Intent para enviar datos a la siguiente actividad
-//        val intent = Intent(this, ResumenActivity::class.java)
-//        intent.putExtra("nombreCliente", nombreCliente)
-//        intent.putExtra("direccionEntrega", direccionEntrega)
-//        intent.putExtra("metodoPago", metodoPago)
+//        // Enviar los datos del cliente y el método de pago
+//        val intent = Intent(this, ResumenActivity::class.java).apply {
 //
-//        // Agregar datos del producto
-//        intent.putExtra("nombreProducto", nombreProducto)
-//        intent.putExtra("precioProducto", precioProducto)
-//        intent.putExtra("imagenProducto", imagenProducto)
-//
+//            // Enviar datos del cliente
+//            putExtra("nombreCliente", nombreCliente)
+//            putExtra("direccionEntrega", direccionEntrega)
+//            putExtra("metodoPago", metodoPago)
+//            putExtra("nombreProducto", nombreProducto)
+//            putExtra("precioProducto", precioProducto)
+//            putExtra("imagenProducto", imagenProducto)
+//            putExtra("talla", talla)
+//        }
 //        startActivity(intent)
     }
-
 }
