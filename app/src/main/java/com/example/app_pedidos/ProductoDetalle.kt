@@ -44,6 +44,7 @@ class ProductoDetalle : AppCompatActivity() {
         // Asignar el botón de continuar
         val btnContinuar = findViewById<Button>(R.id.btnRegistrar)
         btnContinuar.setOnClickListener {
+
             // Obtener la talla seleccionada del RadioGroup
             val selectedId = radioGroup.checkedRadioButtonId
             val selectedRadioButton = findViewById<RadioButton>(selectedId)
@@ -56,12 +57,13 @@ class ProductoDetalle : AppCompatActivity() {
                 putExtra("precio", precio)
                 putExtra("imagen", imagen)
                 putExtra("talla", tallaSeleccionada)  // Enviar la talla seleccionada
-                putExtra("talla", cantidadIngresada)
+                putExtra("cantidad", cantidadIngresada)
             }
 
             // Iniciar la actividad Cliente
             startActivity(intent)
         }
     }
+
 }
 

@@ -1,9 +1,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:background="#b89b7a"
+    android:layout_margin="10dp">
 
+
+    <ImageView
+        android:id="@+id/imagenPedido"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/ic_launcher_background" /> <!-- Imagen predeterminada en caso de que no haya ninguna -->
     <!-- Otros TextViews -->
     <TextView
         android:id="@+id/nombreProducto"
@@ -11,63 +20,79 @@
         android:layout_height="wrap_content"
         android:text="Producto"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textColor="#593930"
+        android:textStyle="bold"
+        android:layout_margin="10dp"/>
 
     <TextView
         android:id="@+id/cantidad"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Cantidad"
-        android:textSize="14sp" />
+        android:textColor="#593930"
+        android:textSize="14sp"
+        android:layout_margin="2dp"/>
 
     <TextView
         android:id="@+id/talla"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Talla"
-        android:textSize="14sp" />
+        android:textColor="#593930"
+        android:textSize="14sp"
+        android:layout_margin="2dp"/>
 
     <TextView
         android:id="@+id/precio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Precio"
-        android:textSize="14sp" />
+        android:textColor="#593930"
+        android:textSize="14sp"
+        android:layout_margin="2dp"/>
 
     <TextView
         android:id="@+id/nombreCliente"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Cliente"
-        android:textSize="14sp" />
+        android:textColor="#593930"
+        android:textSize="14sp"
+        android:layout_margin="2dp"/>
 
     <TextView
         android:id="@+id/direccion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Dirección"
-        android:textSize="14sp" />
+        android:textColor="#593930"
+        android:textSize="14sp"
+        android:layout_margin="2dp"/>
 
     <TextView
         android:id="@+id/metodoPago"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Método de pago"
-        android:textSize="14sp" />
+        android:textColor="#593930"
+        android:textSize="14sp"
+        android:layout_margin="2dp"/>
 
     <!-- Botón para eliminar el pedido -->
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnEliminarPedido"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Eliminar"
-        android:backgroundTint="@color/design_default_color_error"
-        android:textColor="@android:color/white"/>
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:icon="@drawable/ic_delete"
+        app:iconSize="32dp"
+        app:iconGravity="textTop"
+        android:layout_gravity="end"
+        android:backgroundTint="#503b2b"
+        app:iconTint="#FFFFFF"
+        android:layout_margin="8dp"
+        />
 
-    <!-- ImageView para mostrar la imagen -->
-    <ImageView
-        android:id="@+id/imagenPedido"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:src="@drawable/ic_launcher_background" /> <!-- Imagen predeterminada en caso de que no haya ninguna -->
+
+
+
 </LinearLayout>

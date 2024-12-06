@@ -2,6 +2,7 @@ package com.example.app_pedidos
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,9 +25,9 @@ class mostrarPedidos : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         // Botón flotante para agregar un nuevo pedido
-//        findViewById<FloatingActionButton>(R.id.agregarPedido).setOnClickListener {
-//            startActivity(Intent(this, AgregarPedidoActivity::class.java))
-//        }
+        findViewById<Button>(R.id.atras).setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
+       }
 
         // Cargar la lista de pedidos
         loadPedidos()

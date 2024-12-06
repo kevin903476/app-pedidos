@@ -23,7 +23,7 @@ class ProductoAdapter(
     override fun onBindViewHolder(holder: ProductoViewHolder, position: Int) {
         val producto = productos[position]
         holder.txtNombre.text = producto.nombre
-        holder.txtPrecio.text = "$${producto.precio}"
+        holder.txtPrecio.text = "₡"+"${producto.precio}"
 
         // Asignar imagen si está disponible
         holder.imgProducto.setImageResource(producto.imagen)

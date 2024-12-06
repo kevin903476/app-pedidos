@@ -41,9 +41,11 @@ class MainActivity : AppCompatActivity() {
     private fun loadProducts() {
         // Lista de productos (puedes agregar más según tu necesidad)
         val productos = listOf(
-            Producto("Camiseta", 15.99, R.drawable.ic_launcher_background),
-            Producto("Pantalón", 25.99, R.drawable.ic_launcher_background),
-            Producto("Zapatos", 45.50, R.drawable.ic_launcher_background)
+            Producto("Camisa Dober", 30.0, R.drawable.camisauno),
+            Producto("Camisa Calaca", 25.99, R.drawable.camisados),
+            Producto("Camisa Araña", 45.50, R.drawable.camisatres) ,
+            Producto("Camisa Araña", 105.0, R.drawable.camisacuatro),
+            Producto("Camisa Dream", 15.50, R.drawable.camisacinco)
         )
 
         // Configurar el adaptador con la lista de productos
