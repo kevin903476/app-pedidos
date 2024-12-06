@@ -1,6 +1,8 @@
 package com.example.app_pedidos
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -25,8 +27,13 @@ class ProductoDetalle : AppCompatActivity() {
         val imagen = intent.getIntExtra("imagen", 0)  // Obtener el recurso de la imagen
 
         // Asignar los datos a las vistas
-        findViewById<TextView>(R.id.textViewNombre).text = nombre
-        findViewById<TextView>(R.id.textViewPrecio).text = "Precio: $${precio}"
-        findViewById<ImageView>(R.id.imageViewProducto).setImageResource(imagen)  // Asignar la imagen al ImageView
+        val btnContinuar = findViewById<Button>(R.id.btnRegistrar)
+        btnContinuar.setOnClickListener {
+            val intent = Intent(this, Cliente::class.java)
+            intent.putExtra("nombreProducto", nombre)
+            intent.putExtra("precioProducto", precio)
+            intent.putExtra("imagenProducto", imagen)
+            startActivity(intent)
+        }
     }
 }
