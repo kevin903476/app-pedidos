@@ -23,6 +23,7 @@ class Cliente : AppCompatActivity() {
     private lateinit var btnRegistrar: Button
 
     private var nombreProducto: String? = null
+    private var cantidad: String? = null
     private var precioProducto: Double = 0.0
     private var imagenProducto: Int = 0
     private var talla: String? = null // Cambiado a String para manejar la talla como texto
@@ -42,6 +43,7 @@ class Cliente : AppCompatActivity() {
         precioProducto = intent.getDoubleExtra("precio", 0.0)
         imagenProducto = intent.getIntExtra("imagen", 0)
         talla = intent.getStringExtra("talla")  // Obtener la talla como String
+        cantidad = intent.getStringExtra("cantidad")
 
         // Inicializar vistas
         nombreClienteText = findViewById(R.id.nombreClienteText)
@@ -51,6 +53,7 @@ class Cliente : AppCompatActivity() {
 
         btnRegistrar.setOnClickListener {
             enviarDatos()
+            startActivity(Intent(this, MainActivity::class.java))
         }
     }
 
@@ -63,6 +66,7 @@ class Cliente : AppCompatActivity() {
         val radioButton = findViewById<RadioButton>(selectedId)
         val metodoPago = radioButton?.text.toString()
 
+        // Validar campos obligatorios
         if (nombreCliente.isEmpty()) {
             nombreClienteText.error = "Ingrese un nombre"
             return
@@ -72,18 +76,29 @@ class Cliente : AppCompatActivity() {
             return
         }
 
-//        // Enviar los datos del cliente y el método de pago
-//        val intent = Intent(this, ResumenActivity::class.java).apply {
-//
-//            // Enviar datos del cliente
-//            putExtra("nombreCliente", nombreCliente)
-//            putExtra("direccionEntrega", direccionEntrega)
-//            putExtra("metodoPago", metodoPago)
-//            putExtra("nombreProducto", nombreProducto)
-//            putExtra("precioProducto", precioProducto)
-//            putExtra("imagenProducto", imagenProducto)
-//            putExtra("talla", talla)
-//        }
-//        startActivity(intent)
+        // Crear una instancia de la base de datos
+        val dbHelper = MyDatabaseHelper(this)
+
+        // Convertir el ID de la imagen a un String para guardarlo en la base de datos
+        val imagen = imagenProducto.toString()
+
+        // Insertar los datos en la base de datos
+        val resultado = dbHelper.insertarPedido(
+            nombreProducto ?: "",
+            cantidad?.toInt() ?: 0,  // Convierte la cantidad a Integer
+            talla ?: "",             // Talla como String
+            precioProducto,
+            nombreCliente,
+            direccionEntrega,
+            metodoPago,
+            imagen
+        )
+
+        if (resultado != -1L) {
+            Toast.makeText(this, "Pedido registrado exitosamente", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "Error al registrar el pedido", Toast.LENGTH_SHORT).show()
+        }
     }
+
 }

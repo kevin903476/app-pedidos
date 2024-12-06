@@ -3,6 +3,7 @@ package com.example.app_pedidos
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.RadioGroup
@@ -38,6 +39,7 @@ class ProductoDetalle : AppCompatActivity() {
 
         // Obtener el RadioGroup y los RadioButton
         val radioGroup: RadioGroup = findViewById(R.id.radioGroupTalla)
+        var cantidad: EditText = findViewById(R.id.editCantidad)
 
         // Asignar el botón de continuar
         val btnContinuar = findViewById<Button>(R.id.btnRegistrar)
@@ -46,6 +48,7 @@ class ProductoDetalle : AppCompatActivity() {
             val selectedId = radioGroup.checkedRadioButtonId
             val selectedRadioButton = findViewById<RadioButton>(selectedId)
             val tallaSeleccionada = selectedRadioButton?.text.toString()  // Obtener la talla seleccionada
+            val cantidadIngresada = cantidad.text.toString()
 
             // Crear el Intent para pasar los datos a la actividad Cliente
             val intent = Intent(this, Cliente::class.java).apply {
@@ -53,6 +56,7 @@ class ProductoDetalle : AppCompatActivity() {
                 putExtra("precio", precio)
                 putExtra("imagen", imagen)
                 putExtra("talla", tallaSeleccionada)  // Enviar la talla seleccionada
+                putExtra("talla", cantidadIngresada)
             }
 
             // Iniciar la actividad Cliente
