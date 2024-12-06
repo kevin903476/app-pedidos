@@ -55,6 +55,15 @@
         android:text="Método de pago"
         android:textSize="14sp" />
 
+    <!-- Botón para eliminar el pedido -->
+    <Button
+        android:id="@+id/btnEliminarPedido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Eliminar"
+        android:backgroundTint="@color/design_default_color_error"
+        android:textColor="@android:color/white"/>
+
     <!-- ImageView para mostrar la imagen -->
     <ImageView
         android:id="@+id/imagenPedido"

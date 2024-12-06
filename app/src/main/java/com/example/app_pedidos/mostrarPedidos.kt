@@ -33,12 +33,12 @@ class mostrarPedidos : AppCompatActivity() {
     }
 
     private fun loadPedidos() {
-        // Obtener pedidos de la base de datos
-        val pedidos = dbHelper.obtenerPedidos() // Método que debes implementar en tu `MyDatabaseHelper`
+        val pedidos = dbHelper.obtenerPedidos()
         adapter = PedidoAdapter(
             pedidos,
-            onPedidoClick = { pedido -> viewPedidoDetails(pedido) },
-            onPedidoLongClick = { pedido -> deletePedido(pedido) }
+            onEliminarClick = { pedido ->
+                deletePedido(pedido)
+            }
         )
         recyclerView.adapter = adapter
     }
@@ -54,9 +54,8 @@ class mostrarPedidos : AppCompatActivity() {
     }
 
     private fun deletePedido(pedido: Pedido) {
-        // Eliminar pedido de la base de datos
-        dbHelper.eliminarPedido(pedido.id) // Método que debes implementar en `MyDatabaseHelper`
+        dbHelper.eliminarPedido(pedido.id)
         Toast.makeText(this, "Pedido eliminado", Toast.LENGTH_SHORT).show()
-        loadPedidos() // Refrescar la lista después de eliminar
+        loadPedidos() // Actualizar la lista
     }
 }
