@@ -26,14 +26,25 @@ class ProductoDetalle : AppCompatActivity() {
         val precio = intent.getDoubleExtra("precio", 0.0)
         val imagen = intent.getIntExtra("imagen", 0)  // Obtener el recurso de la imagen
 
+
+        // Asignar los valores a los elementos de la vista
+        findViewById<TextView>(R.id.textViewNombre).text = nombre
+        findViewById<TextView>(R.id.textViewPrecio).text = "Precio: $${precio}"
+
+        // Establecer la imagen
+        if (imagen != 0) {
+            findViewById<ImageView>(R.id.imageViewProducto).setImageResource(imagen)
+        }
         // Asignar los datos a las vistas
         val btnContinuar = findViewById<Button>(R.id.btnRegistrar)
         btnContinuar.setOnClickListener {
-            val intent = Intent(this, Cliente::class.java)
-            intent.putExtra("nombreProducto", nombre)
-            intent.putExtra("precioProducto", precio)
-            intent.putExtra("imagenProducto", imagen)
-            startActivity(intent)
+            val intent = Intent(this, Cliente::class.java).apply {
+                putExtra("nombre", nombre)
+                putExtra("precio", precio)
+                putExtra("imagen", imagen)
+            }
+
+            this.startActivity(intent)
         }
     }
 }

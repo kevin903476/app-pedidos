@@ -32,9 +32,9 @@ class Cliente : AppCompatActivity() {
             insets
         }
 
-        nombreProducto = intent.getStringExtra("nombreProducto")
-        precioProducto = intent.getDoubleExtra("precioProducto", 0.0)
-        imagenProducto = intent.getIntExtra("imagenProducto", 0)
+        nombreProducto = intent.getStringExtra("nombre")
+        precioProducto = intent.getDoubleExtra("precio", 0.0)
+        imagenProducto = intent.getIntExtra("imagen", 0)
 
         // Inicializar vistas
         nombreClienteText = findViewById(R.id.nombreClienteText)
@@ -68,17 +68,17 @@ class Cliente : AppCompatActivity() {
         }
 
         // Crear Intent para enviar datos a la siguiente actividad
-        val intent = Intent(this, ResumenActivity::class.java)
-        intent.putExtra("nombreCliente", nombreCliente)
-        intent.putExtra("direccionEntrega", direccionEntrega)
-        intent.putExtra("metodoPago", metodoPago)
-
-        // Agregar datos del producto
-        intent.putExtra("nombreProducto", nombreProducto)
-        intent.putExtra("precioProducto", precioProducto)
-        intent.putExtra("imagenProducto", imagenProducto)
-
-        startActivity(intent)
+//        val intent = Intent(this, ResumenActivity::class.java)
+//        intent.putExtra("nombreCliente", nombreCliente)
+//        intent.putExtra("direccionEntrega", direccionEntrega)
+//        intent.putExtra("metodoPago", metodoPago)
+//
+//        // Agregar datos del producto
+//        intent.putExtra("nombreProducto", nombreProducto)
+//        intent.putExtra("precioProducto", precioProducto)
+//        intent.putExtra("imagenProducto", imagenProducto)
+//
+//        startActivity(intent)
     }
 
 }
