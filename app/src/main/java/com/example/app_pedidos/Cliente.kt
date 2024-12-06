@@ -14,6 +14,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class Cliente : AppCompatActivity() {
+
     private lateinit var nombreClienteText: TextView
     private lateinit var direccionEntregaEdit: EditText
     private lateinit var metodoPagoSpinner: Spinner
@@ -22,6 +23,8 @@ class Cliente : AppCompatActivity() {
     private var nombreProducto: String? = null
     private var precioProducto: Double = 0.0
     private var imagenProducto: Int = 0
+    private var talla: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -35,6 +38,7 @@ class Cliente : AppCompatActivity() {
         nombreProducto = intent.getStringExtra("nombre")
         precioProducto = intent.getDoubleExtra("precio", 0.0)
         imagenProducto = intent.getIntExtra("imagen", 0)
+        talla = intent.getIntExtra("imagen", 0)
 
         // Inicializar vistas
         nombreClienteText = findViewById(R.id.nombreClienteText)
@@ -53,6 +57,7 @@ class Cliente : AppCompatActivity() {
             enviarDatos()
         }
     }
+
     private fun enviarDatos() {
         val nombreCliente = nombreClienteText.text.toString()
         val direccionEntrega = direccionEntregaEdit.text.toString()

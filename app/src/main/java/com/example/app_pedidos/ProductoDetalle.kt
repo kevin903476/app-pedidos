@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -31,10 +32,12 @@ class ProductoDetalle : AppCompatActivity() {
         findViewById<TextView>(R.id.textViewNombre).text = nombre
         findViewById<TextView>(R.id.textViewPrecio).text = "Precio: $${precio}"
 
+        val spinner: Spinner = findViewById(R.id.spinnerTalla)
+
         // Establecer la imagen
-        if (imagen != 0) {
-            findViewById<ImageView>(R.id.imageViewProducto).setImageResource(imagen)
-        }
+
+        findViewById<ImageView>(R.id.imageViewProducto).setImageResource(imagen)
+
         // Asignar los datos a las vistas
         val btnContinuar = findViewById<Button>(R.id.btnRegistrar)
         btnContinuar.setOnClickListener {
@@ -42,6 +45,8 @@ class ProductoDetalle : AppCompatActivity() {
                 putExtra("nombre", nombre)
                 putExtra("precio", precio)
                 putExtra("imagen", imagen)
+                putExtra("talla", spinner)
+
             }
 
             this.startActivity(intent)
