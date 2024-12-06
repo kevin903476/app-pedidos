@@ -1,0 +1,47 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainPedidos"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mostrarPedidos"
+    android:background="#f5f5f5">
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/tituloPedidos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+
+        android:text="Lista de Pedidos"
+        android:textColor="#333333"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <!-- RecyclerView para mostrar los pedidos -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewPedidos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/tituloPedidos"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="59dp"
+        android:layout_marginBottom="410dp"
+        android:padding="16dp" />
+
+    <!-- Botón flotante para agregar pedidos
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/agregarPedido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:backgroundTint="#3F51B5"
+        android:contentDescription="Agregar pedido"
+        app:srcCompat="@drawable/ic_add" />
+       -->
+</RelativeLayout>
