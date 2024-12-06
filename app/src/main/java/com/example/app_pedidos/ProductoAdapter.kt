@@ -25,16 +25,17 @@ class ProductoAdapter(
         holder.txtNombre.text = producto.nombre
         holder.txtPrecio.text = "$${producto.precio}"
 
-        // Asignar imagen si está disponible (puedes cambiar según tus datos)
-        holder.imgProducto.setImageResource(R.drawable.ic_launcher_background)
+        // Asignar imagen si está disponible
+        holder.imgProducto.setImageResource(producto.imagen)
 
         // Acción del botón "Ver detalles"
         holder.btnVerDetalles.setOnClickListener {
-//            val intent = Intent(context, DetalleProductoActivity::class.java).apply {
-//                putExtra("NOMBRE_PRODUCTO", producto.nombre)
-//                putExtra("PRECIO_PRODUCTO", producto.precio)
-//            }
-//            context.startActivity(intent)
+            val intent = Intent(context, ProductoDetalle::class.java).apply {
+                putExtra("nombre", producto.nombre)
+                putExtra("precio", producto.precio)
+                putExtra("imagen", producto.imagen)
+            }
+            context.startActivity(intent)
         }
     }
 

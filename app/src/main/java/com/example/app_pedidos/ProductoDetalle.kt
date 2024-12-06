@@ -19,17 +19,14 @@ class ProductoDetalle : AppCompatActivity() {
             insets
         }
 
+        // Recibir los datos enviados por el adapter
         val nombre = intent.getStringExtra("nombre")
         val precio = intent.getDoubleExtra("precio", 0.0)
-        val talla = intent.getStringExtra("talla")
-        val cantidad = intent.getIntExtra("cantidad", 0)
-        val imagen = intent.getIntExtra("imagen", 0)
+        val imagen = intent.getIntExtra("imagen", 0)  // Obtener el recurso de la imagen
 
-
+        // Asignar los datos a las vistas
         findViewById<TextView>(R.id.textViewNombre).text = nombre
         findViewById<TextView>(R.id.textViewPrecio).text = "Precio: $${precio}"
-        findViewById<TextView>(R.id.textViewTalla).text = "Talla: $talla"
-        findViewById<TextView>(R.id.textViewCantidad).text = "Cantidad: $cantidad"
-        findViewById<ImageView>(R.id.imageViewProducto).setImageResource(imagen)
+        findViewById<ImageView>(R.id.imageViewProducto).setImageResource(imagen)  // Asignar la imagen al ImageView
     }
 }

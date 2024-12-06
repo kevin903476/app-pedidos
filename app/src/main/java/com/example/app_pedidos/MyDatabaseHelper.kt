@@ -10,7 +10,7 @@ class MyDatabaseHelper(context: Context) : SQLiteOpenHelper(context, NOMBRE_BASE
 
     companion object {
         const val NOMBRE_BASE_DATOS = "tienda.db"
-        const val VERSION_BASE_DATOS = 1
+        const val VERSION_BASE_DATOS = 2
 
         // Tabla Pedidos
         const val TABLA_PEDIDOS = "pedidos"
@@ -22,6 +22,7 @@ class MyDatabaseHelper(context: Context) : SQLiteOpenHelper(context, NOMBRE_BASE
         const val COLUMNA_NOMBRE_CLIENTE = "nombreCliente"
         const val COLUMNA_DIRECCION = "direccion"
         const val COLUMNA_METODO_PAGO = "metodoPago"
+        const val COLUMNA_IMAGEN = "imagen" // Nueva columna para la imagen
     }
 
     override fun onCreate(db: SQLiteDatabase) {
@@ -34,18 +35,21 @@ class MyDatabaseHelper(context: Context) : SQLiteOpenHelper(context, NOMBRE_BASE
                 $COLUMNA_PRECIO REAL NOT NULL,
                 $COLUMNA_NOMBRE_CLIENTE TEXT NOT NULL,
                 $COLUMNA_DIRECCION TEXT NOT NULL,
-                $COLUMNA_METODO_PAGO TEXT NOT NULL
+                $COLUMNA_METODO_PAGO TEXT NOT NULL,
+                $COLUMNA_IMAGEN TEXT 
             )
         """
         db.execSQL(crearTablaPedidos)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        db.execSQL("DROP TABLE IF EXISTS $TABLA_PEDIDOS")
-        onCreate(db)
+        if (oldVersion < 2) {
+            // Añadir la columna imagen en la versión 2
+            db.execSQL("ALTER TABLE $TABLA_PEDIDOS ADD COLUMN $COLUMNA_IMAGEN TEXT")
+        }
     }
 
-    // Método para insertar un pedido
+    // Método para insertar un pedido (incluyendo la imagen)
     fun insertarPedido(
         nombreProducto: String,
         cantidad: Int,
@@ -53,7 +57,8 @@ class MyDatabaseHelper(context: Context) : SQLiteOpenHelper(context, NOMBRE_BASE
         precio: Double,
         nombreCliente: String,
         direccion: String,
-        metodoPago: String
+        metodoPago: String,
+        imagen: String? // Ruta de la imagen
     ): Long {
         val db = writableDatabase
         val valores = ContentValues().apply {
@@ -64,11 +69,12 @@ class MyDatabaseHelper(context: Context) : SQLiteOpenHelper(context, NOMBRE_BASE
             put(COLUMNA_NOMBRE_CLIENTE, nombreCliente)
             put(COLUMNA_DIRECCION, direccion)
             put(COLUMNA_METODO_PAGO, metodoPago)
+            put(COLUMNA_IMAGEN, imagen) // Agregamos la imagen
         }
         return db.insert(TABLA_PEDIDOS, null, valores)
     }
 
-    // Método para actualizar un pedido
+    // Método para actualizar un pedido (incluyendo la imagen)
     fun actualizarPedido(
         id: Int,
         nombreProducto: String,
@@ -77,7 +83,8 @@ class MyDatabaseHelper(context: Context) : SQLiteOpenHelper(context, NOMBRE_BASE
         precio: Double,
         nombreCliente: String,
         direccion: String,
-        metodoPago: String
+        metodoPago: String,
+        imagen: String?
     ): Int {
         val db = writableDatabase
         val valores = ContentValues().apply {
@@ -88,17 +95,12 @@ class MyDatabaseHelper(context: Context) : SQLiteOpenHelper(context, NOMBRE_BASE
             put(COLUMNA_NOMBRE_CLIENTE, nombreCliente)
             put(COLUMNA_DIRECCION, direccion)
             put(COLUMNA_METODO_PAGO, metodoPago)
+            put(COLUMNA_IMAGEN, imagen) // Actualizamos la imagen
         }
         return db.update(TABLA_PEDIDOS, valores, "$COLUMNA_ID_PEDIDO=?", arrayOf(id.toString()))
     }
 
-    // Método para eliminar un pedido
-    fun eliminarPedido(id: Int): Int {
-        val db = writableDatabase
-        return db.delete(TABLA_PEDIDOS, "$COLUMNA_ID_PEDIDO=?", arrayOf(id.toString()))
-    }
-
-    // Método para obtener todos los pedidos
+    // Método para obtener todos los pedidos (incluyendo la imagen)
     fun obtenerPedidos(): List<Pedido> {
         val db = readableDatabase
         val listaPedidos = mutableListOf<Pedido>()
@@ -113,12 +115,20 @@ class MyDatabaseHelper(context: Context) : SQLiteOpenHelper(context, NOMBRE_BASE
                     precio = it.getDouble(it.getColumnIndexOrThrow(COLUMNA_PRECIO)),
                     nombreCliente = it.getString(it.getColumnIndexOrThrow(COLUMNA_NOMBRE_CLIENTE)),
                     direccion = it.getString(it.getColumnIndexOrThrow(COLUMNA_DIRECCION)),
-                    metodoPago = it.getString(it.getColumnIndexOrThrow(COLUMNA_METODO_PAGO))
+                    metodoPago = it.getString(it.getColumnIndexOrThrow(COLUMNA_METODO_PAGO)),
+                    imagen = it.getString(it.getColumnIndexOrThrow(COLUMNA_IMAGEN)) // Obtenemos la ruta de la imagen
                 )
                 listaPedidos.add(pedido)
             }
         }
         return listaPedidos
+    }
+
+    // Método para eliminar un pedido por su ID
+    fun eliminarPedido(id: Int): Int {
+        val db = writableDatabase
+        // Eliminar el pedido usando su ID
+        return db.delete(TABLA_PEDIDOS, "$COLUMNA_ID_PEDIDO=?", arrayOf(id.toString()))
     }
 }
 
