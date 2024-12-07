@@ -9,6 +9,7 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -39,30 +40,61 @@ class ProductoDetalle : AppCompatActivity() {
 
         // Obtener el RadioGroup y los RadioButton
         val radioGroup: RadioGroup = findViewById(R.id.radioGroupTalla)
-        var cantidad: EditText = findViewById(R.id.editCantidad)
+        val cantidad: EditText = findViewById(R.id.editCantidad)
 
         // Asignar el botón de continuar
         val btnContinuar = findViewById<Button>(R.id.btnRegistrar)
         btnContinuar.setOnClickListener {
+            if (validarDatos(radioGroup, cantidad, nombre, precio, imagen)) {
+                // Obtener la talla seleccionada del RadioGroup
+                val selectedId = radioGroup.checkedRadioButtonId
+                val selectedRadioButton = findViewById<RadioButton>(selectedId)
+                val tallaSeleccionada = selectedRadioButton.text.toString()
+                val cantidadIngresada = cantidad.text.toString()
 
-            // Obtener la talla seleccionada del RadioGroup
-            val selectedId = radioGroup.checkedRadioButtonId
-            val selectedRadioButton = findViewById<RadioButton>(selectedId)
-            val tallaSeleccionada = selectedRadioButton?.text.toString()  // Obtener la talla seleccionada
-            val cantidadIngresada = cantidad.text.toString()
+                // Crear el Intent para pasar los datos a la actividad Cliente
+                val intent = Intent(this, Cliente::class.java).apply {
+                    putExtra("nombre", nombre)
+                    putExtra("precio", precio)
+                    putExtra("imagen", imagen)
+                    putExtra("talla", tallaSeleccionada)  // Enviar la talla seleccionada
+                    putExtra("cantidad", cantidadIngresada)
+                }
 
-            // Crear el Intent para pasar los datos a la actividad Cliente
-            val intent = Intent(this, Cliente::class.java).apply {
-                putExtra("nombre", nombre)
-                putExtra("precio", precio)
-                putExtra("imagen", imagen)
-                putExtra("talla", tallaSeleccionada)  // Enviar la talla seleccionada
-                putExtra("cantidad", cantidadIngresada)
+                // Iniciar la actividad Cliente
+                startActivity(intent)
             }
-
-            // Iniciar la actividad Cliente
-            startActivity(intent)
         }
+    }
+
+    private fun validarDatos(
+        radioGroup: RadioGroup,
+        cantidad: EditText,
+        nombre: String?,
+        precio: Double,
+        imagen: Int
+    ): Boolean {
+        // Validar selección de talla
+        val selectedId = radioGroup.checkedRadioButtonId
+        if (selectedId == -1) {
+            Toast.makeText(this, "Seleccione una talla", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        // Validar cantidad
+        val cantidadText = cantidad.text.toString().trim()
+        if (cantidadText.isEmpty()) {
+            cantidad.error = "Ingrese una cantidad"
+            return false
+        }
+
+        val cantidadValue = cantidadText.toIntOrNull()
+        if (cantidadValue == null || cantidadValue <= 0) {
+            cantidad.error = "La cantidad debe ser mayor a 0"
+            return false
+        }
+
+        return true
     }
 
 }

@@ -52,53 +52,63 @@ class Cliente : AppCompatActivity() {
         btnRegistrar = findViewById(R.id.btnRegistrar)
 
         btnRegistrar.setOnClickListener {
-            enviarDatos()
-            startActivity(Intent(this, MainActivity::class.java))
+            if (enviarDatos()) {
+                // Solo navegar a la siguiente actividad si el envío de datos es exitoso
+                startActivity(Intent(this, MainActivity::class.java))
+            }
         }
     }
 
-    private fun enviarDatos() {
-        val nombreCliente = nombreClienteText.text.toString()
-        val direccionEntrega = direccionEntregaEdit.text.toString()
+        private fun enviarDatos(): Boolean {
+            val nombreCliente = nombreClienteText.text.toString()
+            val direccionEntrega = direccionEntregaEdit.text.toString()
 
-        // Obtener el método de pago seleccionado
-        val selectedId = radioGroupPago.checkedRadioButtonId
-        val radioButton = findViewById<RadioButton>(selectedId)
-        val metodoPago = radioButton?.text.toString()
+            // Validar campos obligatorios
+            if (nombreCliente.isEmpty()) {
+                nombreClienteText.error = "Ingrese un nombre"
+                return false
+            }
+            if (direccionEntrega.isEmpty()) {
+                direccionEntregaEdit.error = "Ingrese una dirección"
+                return false
+            }
 
-        // Validar campos obligatorios
-        if (nombreCliente.isEmpty()) {
-            nombreClienteText.error = "Ingrese un nombre"
-            return
+            // Validar que se haya seleccionado un método de pago
+            val selectedId = radioGroupPago.checkedRadioButtonId
+            if (selectedId == -1) {
+                // Ningún RadioButton seleccionado
+                Toast.makeText(this, "Seleccione un método de pago", Toast.LENGTH_SHORT).show()
+                return false
+            }
+
+            // Obtener el método de pago seleccionado
+            val radioButton = findViewById<RadioButton>(selectedId)
+            val metodoPago = radioButton.text.toString()
+
+            // Crear una instancia de la base de datos
+            val dbHelper = MyDatabaseHelper(this)
+
+            // Convertir el ID de la imagen a un String para guardarlo en la base de datos
+            val imagen = imagenProducto.toString()
+
+            // Insertar los datos en la base de datos
+            val resultado = dbHelper.insertarPedido(
+                nombreProducto ?: "",
+                cantidad?.toInt() ?: 0,  // Convierte la cantidad a Integer
+                talla ?: "",             // Talla como String
+                precioProducto,
+                nombreCliente,
+                direccionEntrega,
+                metodoPago,
+                imagen
+            )
+
+            if (resultado != -1L) {
+                Toast.makeText(this, "Pedido registrado exitosamente", Toast.LENGTH_SHORT).show()
+                return true
+            } else {
+                Toast.makeText(this, "Error al registrar el pedido", Toast.LENGTH_SHORT).show()
+                return false
+            }
         }
-        if (direccionEntrega.isEmpty()) {
-            direccionEntregaEdit.error = "Ingrese una dirección"
-            return
-        }
-
-        // Crear una instancia de la base de datos
-        val dbHelper = MyDatabaseHelper(this)
-
-        // Convertir el ID de la imagen a un String para guardarlo en la base de datos
-        val imagen = imagenProducto.toString()
-
-        // Insertar los datos en la base de datos
-        val resultado = dbHelper.insertarPedido(
-            nombreProducto ?: "",
-            cantidad?.toInt() ?: 0,  // Convierte la cantidad a Integer
-            talla ?: "",             // Talla como String
-            precioProducto,
-            nombreCliente,
-            direccionEntrega,
-            metodoPago,
-            imagen
-        )
-
-        if (resultado != -1L) {
-            Toast.makeText(this, "Pedido registrado exitosamente", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(this, "Error al registrar el pedido", Toast.LENGTH_SHORT).show()
-        }
-    }
-
 }
